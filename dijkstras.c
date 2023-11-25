@@ -152,6 +152,8 @@ void printPath(int parent[], int j)
 void printArr(int dist[], int n, int parent[], int src)
 {
     printf("Vertex\t Distance\tPath"); // Print the column headers
+    //print the source to source path
+    printf("\n%d -> %d \t\t %d\t\t%d", src, src, 0, src); // Print the source, source, distance, and source
     for (int i = 0; i < n; i++) // For each vertex
     {
         if (i != src && dist[i] != INT_MAX) // If the vertex is not the source and the distance is not infinity
