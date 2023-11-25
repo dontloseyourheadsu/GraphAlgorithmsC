@@ -263,13 +263,40 @@ void readGraphFromFile(int **graph, const char *filename)
     fclose(file);
 }
 
+int getNumberOfVertices(const char *filename) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        perror("Error opening file");
+        return -1; // Return -1 to indicate an error
+    }
+
+    int src, dest, weight;
+    int maxVertexIndex = -1;
+    while (fscanf(file, "%d %d %d", &src, &dest, &weight) != EOF) {
+        if (src > maxVertexIndex) maxVertexIndex = src;
+        if (dest > maxVertexIndex) maxVertexIndex = dest;
+    }
+
+    fclose(file);
+
+    // The number of vertices is 1 more than the maximum index since vertices start at 0
+    return maxVertexIndex + 1;
+}
+
 int main()
 {
-    int vertices = 5; // Example, adjust based on the graph
+    // Determine the number of vertices by reading the graph file
+    const char *filename = "graph.txt";
+    int vertices = getNumberOfVertices(filename);
+    if (vertices == -1) {
+        printf("Error reading graph file\n");
+        return 1;
+    }
+
     int **graph = createGraph(vertices);
 
     // Read graph from file
-    readGraphFromFile(graph, "graph.txt");
+    readGraphFromFile(graph, filename);
 
     // Print the adjacency matrix
     printMatrix(graph, vertices);
