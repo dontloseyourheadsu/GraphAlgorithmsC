@@ -194,12 +194,13 @@ void printMatrix(int **graph, int vertices)
     }
 }
 
+// The main function that calulates distances of shortest paths from src to all vertices. It is a O(ELogV) function
 void dijkstra(int **graph, int src, int vertices)
 {
     int dist[vertices]; // The output array. dist[i] will hold the shortest distance from src to i
     int parent[vertices]; // Parent array to store shortest path tree
 
-    // minHeap represents set E
+    // minHeap represents set
     struct MinHeap *minHeap = createMinHeap(vertices); // Create the min heap
 
     // Initialize min heap with all vertices. dist value of all vertices
